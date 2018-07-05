@@ -55,17 +55,17 @@ chipcaco.buffer = async (inBuf, outBuf, size) => new Promise((resolve, reject) =
     const header = inBuf.toString('ascii', inPos, headerEndPos)
 
     if (header === 'HXVS') {
-      inPos += 16
+      inPos += 8
     } else if (header === 'HXVF') {
       const size = inBuf.readUIntLE(headerEndPos, 4)
-      inPos += 16
+      inPos += 8
       inBuf.copy(outBuf, outPos, inPos, inPos + size)
       inPos += size
       outPos += size
     } else if (header === 'HXAF') {
       // Currently we just skip audio data
       const size = inBuf.readUIntLE(headerEndPos, 4)
-      inPos += 16 + size
+      inPos += 8 + size
     } else if (header === 'HXFI') {
       break
     } else {
